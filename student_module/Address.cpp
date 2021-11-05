@@ -55,7 +55,7 @@ public:
     }
 
     friend ostream& operator <<(ostream& os, Address& address){
-        cout<<" Postal code: ";
+        cout<<"Postal code: ";
         os<<address.postalCode;
         cout<<" City: ";
         os<<address.city;        

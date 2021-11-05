@@ -5,10 +5,10 @@
 #include "Student.cpp"
 #include "ScholarshipStudent.cpp"
 #include "StudentService.cpp"
-#include "FileNotFoundException.cpp"
-#include "StudentNotFoundException.cpp"
-#include "StudentDuplicatedException.cpp"
-#include "BadInputException.cpp"
+#include "../exceptions/FileNotFoundException.cpp"
+#include "../exceptions/StudentNotFoundException.cpp"
+#include "../exceptions/StudentDuplicatedException.cpp"
+#include "../exceptions/BadInputException.cpp"
 using namespace std;
 
 
@@ -36,7 +36,7 @@ private:
     int choiceModifyStudent;
     string username;
 
-    Student student[100];
+    Student student;
     StudentService studentService;    
 
     void manageStudentMenu(){
@@ -80,27 +80,48 @@ public:
                 switch(choiceRegistrar){
                     case DISPLAY_STUDENT:
                         try{
+                            int choiceDisplayUser;
                             cout<<"Display"<<endl<<endl;
-                            studentService.displayStudent();
-                            cout<<endl;            
+                            cout<<"1. Display All Users"<<endl;
+                            cout<<"2. Display User By Username"<<endl;
+                            cout<<"Input Choice: ";
+                            cin>>choiceDisplayUser;                            
+                            if(choiceDisplayUser == 1){
+                                cout<<endl;
+                                studentService.displayStudent();
+                                cout<<endl;
+                            }else if(choiceDisplayUser == 2){
+                                cout<<"Input Username to Diplay: ";
+                                cin>>username;
+                                cout<<endl;
+                                studentService.displayStudentByUserame(username);
+                                cout<<endl;
+                            }else{
+                                cout<<"\nInvalid Choice!!!"<<endl;
+                            }                                       
                         }catch(StudentNotFoundException& s){
-                            cout<<s.what()<<endl;
+                            cout<<s.what()<<endl<<endl;
                         }
                     break;
                     case ADD_STUDENT:
                         try{
                             //student = new ScholarshipStudent();
-                            int j;
-                            cout<<"Number of Students To Add: ";
-                            cin>>j;
-                            for(int i=1; i<=j; i++){
-                                cout<<"Input Student ("<<i<<"): "<<endl;
-                                student[i].inputStudent();
-                                studentService.addStudent(&student[i]);  
-                                cout<<endl;                                          
-                            }                   
+                            // int j;
+                            // cout<<"Number of Students To Add: ";
+                            // cin>>j;
+                            // for(int i=1; i<=j; i++){
+                            //     cout<<"Input Student ("<<i<<"): "<<endl;
+                            //     student[i].inputStudent();
+                            //     studentService.addStudent(student[i]);  
+                            //     cout<<endl;                                          
+                            // }  
+                            //string username;
+                            cout<<"ADD"<<endl<<endl;
+                            student.inputStudent();
+                            studentService.addStudent(student);  
+                            cout<<endl;                                                   
                         }catch(StudentDuplicatedException& s){
-                            cout<<s.what()<<endl;
+                            cout<<s.what()<<endl<<endl;
                         }                                                
                     break;
                     case UPDATE_STUDENT:      
@@ -136,10 +157,10 @@ public:
                         }
                     }catch(StudentNotFoundException& s){
                         cerr<<s.what();
-                        cout<<endl;
+                        cout<<endl<<endl;
                     }catch(BadInputException& b){
                         cerr<<b.what();
-                        cout<<endl;
+                        cout<<endl<<endl;
                     }                                                    
                     break;
                     case DELETE_STUDENT:

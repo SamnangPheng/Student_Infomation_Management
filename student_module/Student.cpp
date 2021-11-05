@@ -93,7 +93,7 @@ public:
     }
 
     virtual void outputStudent(){
-                cout<<"Username: "<<username<<" Sex: "<<sex<<" Phone Number: "<<phoneNumber<<birthdate<<address<<endl;
+                cout<<"Username: "<<username<<" Sex: "<<sex<<" Phone Number: "<<phoneNumber<<endl<<birthdate<<endl<<address<<endl;
             }
 
 };

@@ -84,8 +84,6 @@ public:
 
     void outputUser(){
         cout<<"Username: "<<username<<" Passsword: "<<password<<" Role: "<<role<<endl;
-    }
-    // bool isEqualUsername(string usenname){
-    //     return (this->username==username);
-    // }
+    }    
+
 };

@@ -2,14 +2,12 @@
 
 #include <iostream>
 #include <vector>
-#include "User.cpp"
-#include "UserService.cpp"
-#include "ApplyUserService.cpp"
-#include "ApplyStudentService.cpp"
-#include "ScholarshipStudent.cpp"
-#include "FileNotFoundException.cpp"
-#include "BadInputException.cpp"
-#include "Authentication.cpp"
+#include "../user_module/ApplyUserService.cpp"
+#include "../student_module/ApplyStudentService.cpp"
+#include "../student_module/ScholarshipStudent.cpp"
+#include "../exceptions/FileNotFoundException.cpp"
+#include "../exceptions/BadInputException.cpp"
+#include "../authentication/Authentication.cpp"
 using namespace std;
 
 enum{
@@ -26,9 +24,9 @@ class ApplicationRearrange{
 private:
     int choiceWelcome;
     int choiceMain;
-    User* userLogin;
-    User user;
-    UserService userService;
+    string username;
+    string password;
+    string role;
     ApplyUserService applyUserService;
     ApplyStudentService applyStudentService;
     Authentication authentication;
@@ -51,35 +49,21 @@ private:
 
 public:
     void run(){
-        User user1("dara", "123", "admin");
-        User user2("lina", "345", "user");
-        userService.addUser(&user2);
-        userService.addUser(&user1);
         do{
             welcomePage();
             switch(choiceWelcome){
                 case LOGIN:
-                    do{
-                        string username;
-                        string password;
-                        //string name, passw;
-
-                        cout<<"Display"<<endl<<endl;
-                        userService.displayUser();
-                        cout<<endl;
-                        cout<<"Enter Usrrname: ";
-                        cin>>username;
-                        cout<<"Enter Password: ";
-                        cin>>password;
-                        cout<<endl;
-
-                        //userLogin = authentication.authenticationUser(username, password);
-                        //if(userLogin->getRole()=="admin")
-                        //  User* user = authentication.authenticateUser(username, password);
-                        //  user->outputUser();
-                        cout<<username<<password;
-                        
-                        if(authentication.authenticateUser(username, password)!=nullptr){
+                    cout<<"Enter Username: ";
+                    cin>>username;
+                    cout<<"Enter Password: ";
+                    cin>>password;    
+                    cout<<"Enter Role: ";                 
+                    cin>>role;      
+                    cout<<endl;                                          
+                    do{                    
+                        if(authentication.authenticateUser(username, password, role)){
+                            cout<<"\nWELCOME"<<endl;
+                            if(role == "admin"){
                             mainMenu();
                             switch(choiceMain){
                                 case MANAGE_USER:
@@ -93,10 +77,16 @@ public:
                                 default: 
                                     cout<<">>> Invalid Input <<<"<<endl<<endl;
                                     break;                                    
+                                }
+                            }else if(role == "user"){
+                               applyStudentService.manageStudentChoice();
+                            }else{
+                                cout<<"\nInvalid Role"<<endl;
+                                break;
                             }
-                        }else{
-                            cout<<"H"<<endl;
+
                         }
+
 
                     }while(choiceMain!=WELCOME_PAGE);
                     break;
@@ -109,5 +99,6 @@ public:
         }while(choiceWelcome!=EXIT);
 
     }
+    
 };
         

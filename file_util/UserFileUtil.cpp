@@ -2,23 +2,24 @@
 
 #include <iostream>
 #include <fstream>
-#include "Student.cpp"
-#include "FileNotFoundException.cpp"
+#include "../user_module/User.cpp"
+#include <vector>
+#include "../exceptions/FileNotFoundException.cpp"
 using namespace std;
 
-class StudentFileUtil{
+class UserFileUtil{
 private:
     ofstream fout;
-    Student student;
+    User user;
 public:
-    void openStudentFile(string filename){
+    void openOutputUserFile(string filename){
         try{
             fout.open(filename, ios::out|ios::app|ios::binary);
         }catch(FileNotFoundException& f){
             cerr<<f.what()<<endl;
         }
     }
-    ifstream InputStudentFile(string filename){
+    ifstream openInputUserFile(string filename){
         ifstream fin;
         try{
             fin.open(filename, ios::in|ios::binary);
@@ -27,10 +28,15 @@ public:
         }
         return fin;
     }    
-    void writeStudentFile(){
-        fout.write((char*)& student, sizeof(Student));
+    void writeUserFile(){
+        fout.write((char*)& user, sizeof(User));
     }
-    void closeStudentFile(){
+    ifstream loadUserFile(){
+        ifstream fin;
+        fin.read((char*)& user, sizeof(User));
+        return fin;
+    }        
+    void closeUserFile(){
         fout.close();
     }
 };

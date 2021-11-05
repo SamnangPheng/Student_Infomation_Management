@@ -5,10 +5,8 @@ using namespace std;
 
 class StudentServiceDAO{
 public:
-    virtual void addStudent(Student* student)=0;
+    virtual void addStudent(Student student)=0;
     virtual void displayStudent()=0;
-//    virtual void modifyStudent(vector<Student*>::iterator student)=0;
-//    virtual void DeleteStudent(vector<Student*>::iterator student)=0;
     virtual void modifyStudent(string username) = 0;
     virtual void deleteStudent(string username) = 0;
 

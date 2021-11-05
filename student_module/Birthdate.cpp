@@ -55,7 +55,7 @@ public:
     }
 
     friend ostream& operator <<(ostream& os, Birthdate& birthdate){
-        cout<<" Birth Day: ";
+        cout<<"Birth Day: ";
         os<<birthdate.day;
         cout<<" Birth Month: ";
         os<<birthdate.month;        

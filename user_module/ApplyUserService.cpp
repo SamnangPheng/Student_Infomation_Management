@@ -5,10 +5,10 @@
 #include <regex>
 #include "User.cpp"
 #include "UserService.cpp"
-#include "FileNotFoundException.cpp"
-#include "UserNotFoundException.cpp"
-#include "UserDuplicatedException.cpp"
-#include "BadInputException.cpp"
+#include "../exceptions/FileNotFoundException.cpp"
+#include "../exceptions/UserNotFoundException.cpp"
+#include "../exceptions/UserDuplicatedException.cpp"
+#include "../exceptions/BadInputException.cpp"
 using namespace std;
 
 enum{
@@ -34,13 +34,13 @@ private:
     int choiceModifyUser;
     string username;
     string digit;
-    User user[100];
+    User user;
     UserService userService;
 
-    bool isValidDigit(string digit){
-        const regex pattern("\\d{1}");
-        return regex_match(digit, pattern);
-    }
+    // bool isValidDigit(string digit){
+    //     const regex pattern("\\d{1}");
+    //     return regex_match(digit, pattern);
+    // }
     void manageUserMenu(){
         cout<<"1. Display User Information"<<endl;
         cout<<"2. Add New User"<<endl;
@@ -49,12 +49,12 @@ private:
         cout<<"5. Load User"<<endl;
         cout<<"6. Save User"<<endl;        
         cout<<"0. Back to Main Menu"<<endl;
-        do{
+        // do{
             cout<<"Enter Choice: ";
             cin>>choiceAdmin;
-        }while(!isValidDigit(digit));
+        // }while(!isValidDigit(digit));
 
-        cout<<endl;
+        cout<<endl<<endl;
     }
     void modifyUserMenu(){
         cout<<"1. Modify Everything"<<endl;
@@ -63,7 +63,7 @@ private:
         cout<<"4. Modify Role"<<endl;
         cout<<"Input Choice: ";
         cin>>choiceModifyUser;
-        cout<<endl;
+        cout<<endl<<endl;
     }    
     string updateInput(string username){
         cout<<"Input Username To Modify: ";
@@ -78,36 +78,45 @@ private:
 
 public:
     void manageUserChoice(){
-        User user1("dara", "123", "admin");
-        userService.addUser(&user1);
         do{
             manageUserMenu();
             switch(choiceAdmin){
                 case DISPLAY_USER:
                     try{
+                        int choiceDisplayUser;
                         cout<<"Display"<<endl<<endl;
-                        userService.displayUser();
-                        cout<<endl;
+                        cout<<"1. Display All Users"<<endl;
+                        cout<<"2. Display User By Username"<<endl;
+                        cout<<"Input Choice: ";
+                        cin>>choiceDisplayUser;
+                        if(choiceDisplayUser == 1){
+                            cout<<endl;
+                            userService.displayUser();
+                            cout<<endl;
+                        }else if(choiceDisplayUser == 2){
+                            cout<<"Input Username to Diplay: ";
+                            cin>>username;
+                            cout<<endl;
+                            userService.displayUserByUserame(username);
+                            cout<<endl;
+                        }else{
+                            cout<<"\nInvalid Choice!!!"<<endl;
+                        }
+
                   }catch(UserNotFoundException& u){
-                        cout<<u.what()<<endl;
+                        cout<<u.what()<<endl<<endl;
                     }
                     break;
                 case ADD_USER:
                     try{
                         cout<<"ADD"<<endl<<endl;
-                        int j;
-                        cout<<"Number of Users To Add: ";
-                        cin>>j;
-                        for(int i=1; i<=j; i++){
-                            cout<<"Input User ("<<i<<"): "<<endl;
-                            user[i].inputUser();
-                            userService.addUser(&user[i]);  
+                            user.inputUser();
+                            userService.addUser(user);  
+
                             cout<<endl;                                          
-                        }                            
                     }catch(UserDuplicatedException& u){
-                        cout<<u.what()<<endl;
+                        cout<<u.what()<<endl<<endl;
                     }
-                    //user.inputUser();
                     break;
                 case UPDATE_USER:
                     modifyUserMenu();
