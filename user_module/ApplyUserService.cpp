@@ -29,9 +29,7 @@ enum{
 
 class ApplyUserService{
 private:
-    int choiceMain;
-    int choiceAdmin;
-    int choiceModifyUser;
+    int choice;
     string username;
     string digit;
     User user;
@@ -50,8 +48,8 @@ private:
         cout<<"6. Save User"<<endl;        
         cout<<"0. Back to Main Menu"<<endl;
         // do{
-            cout<<"Enter Choice: ";
-            cin>>choiceAdmin;
+            // cout<<"Enter Choice: ";
+            // cin>>choiceAdmin;
         // }while(!isValidDigit(digit));
 
         cout<<endl<<endl;
@@ -61,8 +59,8 @@ private:
         cout<<"2. Modify Username"<<endl;
         cout<<"3. Modify Password"<<endl;
         cout<<"4. Modify Role"<<endl;
-        cout<<"Input Choice: ";
-        cin>>choiceModifyUser;
+        // cout<<"Input Choice: ";
+        // cin>>choiceModifyUser;
         cout<<endl<<endl;
     }    
     string updateInput(string username){
@@ -80,20 +78,22 @@ public:
     void manageUserChoice(){
         do{
             manageUserMenu();
-            switch(choiceAdmin){
+            cout<<"Input Choice: ";
+            cin>>choice;            
+            switch(choice){
                 case DISPLAY_USER:
                     try{
-                        int choiceDisplayUser;
+                        //int choiceDisplayUser;
                         cout<<"Display"<<endl<<endl;
                         cout<<"1. Display All Users"<<endl;
                         cout<<"2. Display User By Username"<<endl;
                         cout<<"Input Choice: ";
-                        cin>>choiceDisplayUser;
-                        if(choiceDisplayUser == 1){
+                        cin>>choice;
+                        if(choice == 1){
                             cout<<endl;
                             userService.displayUser();
                             cout<<endl;
-                        }else if(choiceDisplayUser == 2){
+                        }else if(choice == 2){
                             cout<<"Input Username to Diplay: ";
                             cin>>username;
                             cout<<endl;
@@ -109,18 +109,27 @@ public:
                     break;
                 case ADD_USER:
                     try{
+                        //int add;
                         cout<<"ADD"<<endl<<endl;
+                        do{
                             user.inputUser();
-                            userService.addUser(user);  
-
-                            cout<<endl;                                          
+                            userService.addUser(user);
+                            cout<<"\n>>> User Added Successfully <<<"<<endl;  
+                            cout<<"Do You Want to Add Another User?"<<endl;
+                            cout<<"Input 1 For Yes 0 For No: ";
+                            cin>>choice;
+                            cout<<endl; 
+                        }while(choice!=0);
+                                         
                     }catch(UserDuplicatedException& u){
                         cout<<u.what()<<endl<<endl;
                     }
                     break;
                 case UPDATE_USER:
                     modifyUserMenu();
-                    switch(choiceModifyUser){
+                    cout<<"Input Choice: ";
+                    cin>>choice;                            
+                    switch(choice){
                         case U_MODIFY_EVERYTHING:
                             username = updateInput(username);
                             userService.modifyUser(username);
@@ -157,6 +166,6 @@ public:
                 //cout<<">>> Invalid Input <<<"<<endl<<endl;
                 break;
             }                                        
-        }while(choiceAdmin!=MAIN_MENU);
+        }while(choice!=MAIN_MENU);
     }
 };

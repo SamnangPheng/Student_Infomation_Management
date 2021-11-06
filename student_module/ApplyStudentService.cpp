@@ -39,7 +39,7 @@ private:
     Student student;
     StudentService studentService;    
 
-    void manageStudentMenu(){
+    int manageStudentMenu(){
         cout<<"1. Display Student Information"<<endl;
         cout<<"2. Add New Student"<<endl;
         cout<<"3. Update Existing Student"<<endl;
@@ -50,6 +50,7 @@ private:
         cout<<"Enter Choice: ";
         cin>>choiceRegistrar;        
         cout<<endl;
+        return choiceRegistrar;
     }
     void modifyStudentMenu(){
         cout<<"1. Modify Everything"<<endl;
@@ -105,21 +106,16 @@ public:
                     break;
                     case ADD_STUDENT:
                         try{
-                            //student = new ScholarshipStudent();
-                            // int j;
-                            // cout<<"Number of Students To Add: ";
-                            // cin>>j;
-                            // for(int i=1; i<=j; i++){
-                            //     cout<<"Input Student ("<<i<<"): "<<endl;
-                            //     student[i].inputStudent();
-                            //     studentService.addStudent(student[i]);  
-                            //     cout<<endl;                                          
-                            // }  
-                            //string username;
+                            int add;
                             cout<<"ADD"<<endl<<endl;
+                        do{
                             student.inputStudent();
-                            studentService.addStudent(student);  
-                            cout<<endl;                                                   
+                            studentService.addStudent(student);
+                            cout<<"\n>>> Student Added Successfully <<<"<<endl;  
+                            cout<<"Do You Want to Add Another Student?"<<endl;
+                            cout<<"Input 1 For Yes 0 For No: ";
+                            cout<<endl; 
+                        }while(add!=0);                                                  
                         }catch(StudentDuplicatedException& s){
                             cout<<s.what()<<endl<<endl;
                         }                                                
