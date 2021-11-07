@@ -39,9 +39,12 @@ private:
         cout<<endl;
     }
     void mainMenu(){
+        //cout << "\033[2J\033[1;1H";
+        cout<<"================"<<endl;
         cout<<"1. Manage User"<<endl;
         cout<<"2. Manage Student"<<endl;
         cout<<"0. Back to Welcome Page"<<endl;
+        cout<<"================"<<endl;
         cout<<"Enter Choice: ";
         cin>>choiceMain;
         cout<<endl;
@@ -53,6 +56,7 @@ public:
             welcomePage();
             switch(choiceWelcome){
                 case LOGIN:
+                    //cout << "\033[2J\033[1;1H";
                     cout<<"Enter Username: ";
                     cin>>username;
                     cout<<"Enter Password: ";
@@ -62,24 +66,28 @@ public:
                     cout<<endl;                                          
                     do{                    
                         if(authentication.authenticateUser(username, password, role)){
-                            cout<<"\nWELCOME"<<endl;
+                            //cout << "\033[2J\033[1;1H";
+                            cout<<"\n\tWELCOME"<<endl<<endl;
                             if(role == "admin"){
                             mainMenu();
                             switch(choiceMain){
                                 case MANAGE_USER:
+                                    //cout << "\033[2J\033[1;1H";
                                     applyUserService.manageUserChoice();
                                     break;
                                 case MANAGE_STUDENT:
+                                    //cout << "\033[2J\033[1;1H";
                                     applyStudentService.manageStudentChoice();
                                     break;
                                 case WELCOME_PAGE:
                                     break;
                                 default: 
-                                    cout<<">>> Invalid Input <<<"<<endl<<endl;
+                                    //cout<<">>> Invalid Input <<<"<<endl<<endl;
                                     break;                                    
                                 }
                             }else if(role == "user"){
-                               applyStudentService.manageStudentChoice();
+                                //cout << "\033[2J\033[1;1H";
+                                applyStudentService.manageStudentChoice();
                             }else{
                                 cout<<"\nInvalid Role"<<endl;
                                 break;

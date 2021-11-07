@@ -32,14 +32,14 @@ enum{
 
 class ApplyStudentService{
 private: 
-    int choiceRegistrar;
-    int choiceModifyStudent;
+    int choice;
     string username;
 
     Student student;
     StudentService studentService;    
 
-    int manageStudentMenu(){
+    void manageStudentMenu(){
+        cout<<"==============================="<<endl;
         cout<<"1. Display Student Information"<<endl;
         cout<<"2. Add New Student"<<endl;
         cout<<"3. Update Existing Student"<<endl;
@@ -47,20 +47,18 @@ private:
         cout<<"5. Load Student"<<endl;
         cout<<"6. Save Student"<<endl;          
         cout<<"0. Back to Main Menu"<<endl;
-        cout<<"Enter Choice: ";
-        cin>>choiceRegistrar;        
+        cout<<"==============================="<<endl;
         cout<<endl;
-        return choiceRegistrar;
     }
     void modifyStudentMenu(){
+        cout<<"============================="<<endl;
         cout<<"1. Modify Everything"<<endl;
         cout<<"2. Modify Username"<<endl;
         cout<<"3. Modify Sex"<<endl;
         cout<<"4. Modify Phone Number"<<endl;
         cout<<"5. Modify Birthdate"<<endl;
         cout<<"6. Modify Address"<<endl;
-        cout<<"Input Choice: ";
-        cin>>choiceModifyStudent;
+        cout<<"============================="<<endl;
         cout<<endl;
     }    
     string updateInput(string username){
@@ -78,7 +76,9 @@ public:
     void manageStudentChoice(){
         do{
             manageStudentMenu();
-                switch(choiceRegistrar){
+            cout<<"Enter Choice: ";
+            cin>>choice;
+                switch(choice){
                     case DISPLAY_STUDENT:
                         try{
                             int choiceDisplayUser;
@@ -123,7 +123,9 @@ public:
                     case UPDATE_STUDENT:      
                     try{
                         modifyStudentMenu();
-                        switch(choiceModifyStudent){
+                        cout<<"Input Choice: ";
+                        cin>>choice;
+                        switch(choice){
                             case S_MODIFY_EVERYTHING:
                                 username = updateInput(username);
                                 studentService.modifyStudent(username);
@@ -173,7 +175,7 @@ public:
                     //    cout<<">>> Invalid Input <<<"<<endl<<endl;
                     break;
             }
-        }while(choiceRegistrar!=S_MAIN_MENU);
+        }while(choice!=S_MAIN_MENU);
     }
 
 };

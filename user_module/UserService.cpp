@@ -40,7 +40,7 @@ public:
         }
         for(auto it=userlist.begin(); it!=userlist.end(); it++){
             if((it)->getUsername().compare(username)==0){
-                (it)->outputUser();
+                (it)->outputIndividualUser();
                 break;
                 }else{
             UserNotFoundException u;

@@ -40,6 +40,8 @@ private:
     //     return regex_match(digit, pattern);
     // }
     void manageUserMenu(){
+        //cout << "\033[2J\033[1;1H";
+        cout<<"============================"<<endl;
         cout<<"1. Display User Information"<<endl;
         cout<<"2. Add New User"<<endl;
         cout<<"3. Update Existing User"<<endl;
@@ -47,21 +49,22 @@ private:
         cout<<"5. Load User"<<endl;
         cout<<"6. Save User"<<endl;        
         cout<<"0. Back to Main Menu"<<endl;
+        cout<<"============================"<<endl;
         // do{
             // cout<<"Enter Choice: ";
             // cin>>choiceAdmin;
         // }while(!isValidDigit(digit));
-
-        cout<<endl<<endl;
     }
     void modifyUserMenu(){
+        //cout << "\033[2J\033[1;1H";
+        cout<<"============================"<<endl;
         cout<<"1. Modify Everything"<<endl;
         cout<<"2. Modify Username"<<endl;
         cout<<"3. Modify Password"<<endl;
         cout<<"4. Modify Role"<<endl;
+        cout<<"============================"<<endl;
         // cout<<"Input Choice: ";
         // cin>>choiceModifyUser;
-        cout<<endl<<endl;
     }    
     string updateInput(string username){
         cout<<"Input Username To Modify: ";
@@ -84,6 +87,7 @@ public:
                 case DISPLAY_USER:
                     try{
                         //int choiceDisplayUser;
+                        cout << "\033[2J\033[1;1H";
                         cout<<"Display"<<endl<<endl;
                         cout<<"1. Display All Users"<<endl;
                         cout<<"2. Display User By Username"<<endl;
@@ -91,14 +95,19 @@ public:
                         cin>>choice;
                         if(choice == 1){
                             cout<<endl;
+                            //cout << "\033[2J\033[1;1H";
+                            cout<<"========================================"<<endl;
+                            cout<<"Username \t Password \t Role"<<endl;
                             userService.displayUser();
-                            cout<<endl;
+                            cout<<"========================================"<<endl<<endl;
                         }else if(choice == 2){
+                            //cout << "\033[2J\033[1;1H";
                             cout<<"Input Username to Diplay: ";
                             cin>>username;
                             cout<<endl;
+                            cout<<"======================"<<endl;
                             userService.displayUserByUserame(username);
-                            cout<<endl;
+                            cout<<"======================"<<endl<<endl;
                         }else{
                             cout<<"\nInvalid Choice!!!"<<endl;
                         }
@@ -110,6 +119,7 @@ public:
                 case ADD_USER:
                     try{
                         //int add;
+                        //cout << "\033[2J\033[1;1H";
                         cout<<"ADD"<<endl<<endl;
                         do{
                             user.inputUser();
@@ -126,23 +136,28 @@ public:
                     }
                     break;
                 case UPDATE_USER:
+                    //cout << "\033[2J\033[1;1H";
                     modifyUserMenu();
                     cout<<"Input Choice: ";
                     cin>>choice;                            
                     switch(choice){
                         case U_MODIFY_EVERYTHING:
+                            //cout << "\033[2J\033[1;1H";
                             username = updateInput(username);
                             userService.modifyUser(username);
                         break;
                         case U_MODIFY_USERNAME:
+                            //cout << "\033[2J\033[1;1H";
                             username = updateInput(username);
                             userService.modifyUserUsername(username);
                         break;
                         case U_MODIFY_PASSWORD:
+                            //cout << "\033[2J\033[1;1H";
                             username = updateInput(username);
                             userService.modifyUserPassword(username);
                             break;
                         case U_MODIFY_ROLE:
+                            //cout << "\033[2J\033[1;1H";
                             username = updateInput(username);
                             userService.modifyUserRole(username);
                             break;
@@ -151,6 +166,7 @@ public:
                     }
                     break;
                 case DELETE_USER:
+                    //cout << "\033[2J\033[1;1H";
                     username = deleteInput(username);
                     userService.deleteUser(username);
                     break;

@@ -83,7 +83,11 @@ public:
     }
 
     void outputUser(){
-        cout<<"Username: "<<username<<" Passsword: "<<password<<" Role: "<<role<<endl;
+        cout<<username<<" \t\t"<<password<<" \t\t"<<role<<endl;
     }    
+    void outputIndividualUser(){
+        cout<<"Username: "<<username<<endl<<"Passsword: "<<password<<endl<<"Role: "<<role<<endl;
+    }
+    
 
 };
