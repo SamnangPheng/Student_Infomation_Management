@@ -82,20 +82,25 @@ public:
                     case DISPLAY_STUDENT:
                         try{
                             int choiceDisplayUser;
-                            cout<<"Display"<<endl<<endl;
-                            cout<<"1. Display All Users"<<endl;
-                            cout<<"2. Display User By Username"<<endl;
+                            cout<<"\nDisplay"<<endl<<endl;
+                            cout<<"1. Display All Students"<<endl;
+                            cout<<"2. Display Student By Username"<<endl;
                             cout<<"Input Choice: ";
                             cin>>choiceDisplayUser;                            
                             if(choiceDisplayUser == 1){
                                 cout<<endl;
+                            cout<<"========================================"<<endl;
+                            cout<<"Username \t Sex \t Phone Number"<<endl;
                                 studentService.displayStudent();
+                            cout<<"========================================"<<endl<<endl;
                                 cout<<endl;
                             }else if(choiceDisplayUser == 2){
                                 cout<<"Input Username to Diplay: ";
                                 cin>>username;
                                 cout<<endl;
+                                cout<<"======================"<<endl;
                                 studentService.displayStudentByUserame(username);
+                                cout<<"======================"<<endl;                            
                                 cout<<endl;
                             }else{
                                 cout<<"\nInvalid Choice!!!"<<endl;
@@ -107,13 +112,13 @@ public:
                     case ADD_STUDENT:
                         try{
                             int add;
-                            cout<<"ADD"<<endl<<endl;
+                            cout<<"\nADD"<<endl<<endl;
                         do{
                             student.inputStudent();
                             studentService.addStudent(student);
-                            cout<<"\n>>> Student Added Successfully <<<"<<endl;  
                             cout<<"Do You Want to Add Another Student?"<<endl;
                             cout<<"Input 1 For Yes 0 For No: ";
+                            cin>>add;
                             cout<<endl; 
                         }while(add!=0);                                                  
                         }catch(StudentDuplicatedException& s){

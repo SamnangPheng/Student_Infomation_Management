@@ -17,6 +17,7 @@ private:
 public:
     void addStudent(Student student){     
         studentlist.push_back(student);
+        cout<<"\n>>> Student Added Successfully <<<"<<endl;         
     }
     void displayStudent(){
         if(studentlist.empty()){
@@ -34,12 +35,9 @@ public:
         }
         for(auto it=studentlist.begin(); it!=studentlist.end(); it++){
             if((it)->getUsername().compare(username)==0){
-                (it)->outputStudent();
+                (it)->outputIndividualStudent();
                 break;
-                }else{
-            StudentNotFoundException s;
-            throw s;                    
-                }
+                }               
             }
         }     
     void modifyStudent(string username){

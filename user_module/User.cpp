@@ -13,6 +13,7 @@ private:
 
 public:
     User(): username("Unknown"), password("Unknown"), role("Unknown"){}
+    User(string username): username(username){}
     User(string username, string password, string role): username(username), password(password), role(role){}
 
     string getUsername() const{
@@ -66,7 +67,7 @@ public:
     void inputUserUsername(){
         do{
             cout<<"Input Username: ";
-            cin>>username;        
+            cin>>username;
         }while(!isValidUsername(username));
     }    
     void inputUserPassword(){
@@ -83,11 +84,10 @@ public:
     }
 
     void outputUser(){
-        cout<<username<<" \t\t"<<password<<" \t\t"<<role<<endl;
+        cout<<username<<" \t\t "<<password<<" \t\t "<<role<<endl;
     }    
     void outputIndividualUser(){
         cout<<"Username: "<<username<<endl<<"Passsword: "<<password<<endl<<"Role: "<<role<<endl;
     }
-    
 
 };

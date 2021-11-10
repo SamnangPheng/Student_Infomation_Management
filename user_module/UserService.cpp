@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <iterator>
 #include <algorithm>
 #include "User.cpp"
 #include "UserServiceDAO.cpp"
@@ -15,6 +16,7 @@ using namespace std;
 
 class UserService: public UserServiceDAO{
 private:
+    //string username;
     vector<User> userlist;
     User user;
     UserFileUtil userFileUtil;
@@ -23,6 +25,7 @@ private:
 public:
     void addUser(User user){
         userlist.push_back(user);
+        cout<<"\n>>> User Added Successfully <<<"<<endl;  
     }
     void displayUser(){
         if(userlist.empty()){
@@ -38,16 +41,14 @@ public:
             UserNotFoundException u;
             throw u;
         }
-        for(auto it=userlist.begin(); it!=userlist.end(); it++){
-            if((it)->getUsername().compare(username)==0){
-                (it)->outputIndividualUser();
+        for(User user: userlist){
+            if(user.getUsername()==username){
+                user.outputIndividualUser();
                 break;
-                }else{
-            UserNotFoundException u;
-            throw u;                    
-                }
             }
-        }    
+        }                                      
+    }
+            
     void modifyUser(string username){
         if(userlist.empty()){
             UserNotFoundException u;

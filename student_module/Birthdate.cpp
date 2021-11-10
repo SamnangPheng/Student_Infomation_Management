@@ -55,11 +55,11 @@ public:
     }
 
     friend ostream& operator <<(ostream& os, Birthdate& birthdate){
-        cout<<"Birth Day: ";
+        cout<<"\nBirth Day: ";
         os<<birthdate.day;
-        cout<<" Birth Month: ";
+        cout<<"\nBirth Month: ";
         os<<birthdate.month;        
-        cout<<" Birth Year: ";
+        cout<<"\nBirth Year: ";
         os<<birthdate.year;
         return os;
     }

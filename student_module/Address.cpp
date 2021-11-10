@@ -55,11 +55,11 @@ public:
     }
 
     friend ostream& operator <<(ostream& os, Address& address){
-        cout<<"Postal code: ";
+        cout<<"\nPostal code: ";
         os<<address.postalCode;
-        cout<<" City: ";
+        cout<<"\nCity: ";
         os<<address.city;        
-        cout<<" Country: ";
+        cout<<"\nCountry: ";
         os<<address.country;
         return os;
     }    

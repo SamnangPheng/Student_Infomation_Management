@@ -32,6 +32,9 @@ private:
     Authentication authentication;
 
     void welcomePage(){
+        cout<<"\n>>>>>>>>>>>>>>>>>>>>>>>> STUDENT INFORMATION MANAGEMENT <<<<<<<<<<<<<<<<<<<<<<<<<";
+        cout<<"\n                                   SYSTEM";
+        cout<<"\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> VERSION 1.0 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
         cout<<"\n1. Login To The System"<<endl;
         cout<<"0. Exit"<<endl;   
         cout<<"Enter Choice: ";
@@ -39,7 +42,7 @@ private:
         cout<<endl;
     }
     void mainMenu(){
-        //cout << "\033[2J\033[1;1H";
+        system("cls");
         cout<<"================"<<endl;
         cout<<"1. Manage User"<<endl;
         cout<<"2. Manage Student"<<endl;
@@ -56,45 +59,38 @@ public:
             welcomePage();
             switch(choiceWelcome){
                 case LOGIN:
-                    //cout << "\033[2J\033[1;1H";
+                    system("cls");
                     cout<<"Enter Username: ";
                     cin>>username;
                     cout<<"Enter Password: ";
                     cin>>password;    
-                    cout<<"Enter Role: ";                 
-                    cin>>role;      
                     cout<<endl;                                          
                     do{                    
-                        if(authentication.authenticateUser(username, password, role)){
-                            //cout << "\033[2J\033[1;1H";
+                        if(authentication.authenticateUser(username, password, role="admin")){
+                            system("cls");
                             cout<<"\n\tWELCOME"<<endl<<endl;
-                            if(role == "admin"){
                             mainMenu();
                             switch(choiceMain){
                                 case MANAGE_USER:
-                                    //cout << "\033[2J\033[1;1H";
+                                    system("cls");
                                     applyUserService.manageUserChoice();
                                     break;
                                 case MANAGE_STUDENT:
-                                    //cout << "\033[2J\033[1;1H";
+                                    system("cls");
                                     applyStudentService.manageStudentChoice();
                                     break;
                                 case WELCOME_PAGE:
                                     break;
                                 default: 
-                                    //cout<<">>> Invalid Input <<<"<<endl<<endl;
                                     break;                                    
                                 }
-                            }else if(role == "user"){
-                                //cout << "\033[2J\033[1;1H";
-                                applyStudentService.manageStudentChoice();
-                            }else{
-                                cout<<"\nInvalid Role"<<endl;
-                                break;
-                            }
-
+                        }else if(authentication.authenticateUser(username, password, role="user")){
+                            system("cls");
+                            applyStudentService.manageStudentChoice();
+                        }else{
+                            cout<<"\nInvalid Input"<<endl;
+                            break;
                         }
-
 
                     }while(choiceMain!=WELCOME_PAGE);
                     break;
