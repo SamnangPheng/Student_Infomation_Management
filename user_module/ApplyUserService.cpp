@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include "GetChoice.cpp"
 #include <regex>
 #include "User.cpp"
 #include "UserService.cpp"
@@ -27,7 +28,7 @@ enum{
     U_MODIFY_ROLE
 };
 
-class ApplyUserService{
+class ApplyUserService: public GetChoice{
 private:
     int choice;
     string username;
@@ -71,16 +72,14 @@ public:
     void manageUserChoice(){
         do{
             manageUserMenu();
-            cout<<"Input Choice: ";
-            cin>>choice;            
+            choice = getCommand(choice);          
             switch(choice){
                 case DISPLAY_USER:
                     try{
                         cout<<"\nDisplay"<<endl<<endl;
                         cout<<"1. Display All Users"<<endl;
                         cout<<"2. Display User By Username"<<endl;
-                        cout<<"Input Choice: ";
-                        cin>>choice;
+                        choice = getCommand(choice); 
                         if(choice == 1){
                             cout<<endl;
                             cout<<"========================================"<<endl;
@@ -120,8 +119,7 @@ public:
                     break;
                 case UPDATE_USER:
                     modifyUserMenu();
-                    cout<<"Input Choice: ";
-                    cin>>choice;                            
+                    choice = getCommand(choice);                            
                     switch(choice){
                         case U_MODIFY_EVERYTHING:
                             username = updateInput(username);

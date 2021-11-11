@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include "../user_module/GetChoice.cpp"
 #include "Student.cpp"
 #include "ScholarshipStudent.cpp"
 #include "StudentService.cpp"
@@ -30,11 +31,10 @@ enum{
     S_MODIFY_ADDRESS
 };
 
-class ApplyStudentService{
+class ApplyStudentService: public GetChoice{
 private: 
     int choice;
     string username;
-
     Student student;
     StudentService studentService;    
 
@@ -76,25 +76,23 @@ public:
     void manageStudentChoice(){
         do{
             manageStudentMenu();
-            cout<<"Enter Choice: ";
-            cin>>choice;
+            choice = getCommand(choice);
                 switch(choice){
                     case DISPLAY_STUDENT:
                         try{
-                            int choiceDisplayUser;
                             cout<<"\nDisplay"<<endl<<endl;
                             cout<<"1. Display All Students"<<endl;
                             cout<<"2. Display Student By Username"<<endl;
-                            cout<<"Input Choice: ";
-                            cin>>choiceDisplayUser;                            
-                            if(choiceDisplayUser == 1){
+                            choice = getCommand(choice);
+                            if(choice == 1){
                                 cout<<endl;
                             cout<<"========================================"<<endl;
                             cout<<"Username \t Sex \t Phone Number"<<endl;
                                 studentService.displayStudent();
                             cout<<"========================================"<<endl<<endl;
+                            cout<<">>> Choose View Student By Username to View All Information about This Student <<<"<<endl;
                                 cout<<endl;
-                            }else if(choiceDisplayUser == 2){
+                            }else if(choice == 2){
                                 cout<<"Input Username to Diplay: ";
                                 cin>>username;
                                 cout<<endl;
@@ -128,8 +126,7 @@ public:
                     case UPDATE_STUDENT:      
                     try{
                         modifyStudentMenu();
-                        cout<<"Input Choice: ";
-                        cin>>choice;
+                        choice = getCommand(choice);
                         switch(choice){
                             case S_MODIFY_EVERYTHING:
                                 username = updateInput(username);

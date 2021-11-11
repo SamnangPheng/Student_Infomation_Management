@@ -28,13 +28,19 @@ public:
         return phoneNumber;
     }
     void setUsername(string username){
-        this->username=username;
+        if(isValidUsername(username)){
+            this->username=username;
+        }
     }
     void setSex(string sex){
-        this->sex=sex;
+        if(isValidSex(sex)){
+            this->sex=sex;
+        }
     }
      void setPhoneNumber(string phoneNumber){
-        this->phoneNumber=phoneNumber;
+         if(isValidPhoneNumber(phoneNumber)){
+            this->phoneNumber=phoneNumber;
+        }
     }
 
     bool isValidUsername(string username){
@@ -52,37 +58,31 @@ public:
     }
 
     virtual void inputStudent(){
-              do{
-                    cout<<"Input Username: ";
-                    cin>>username;
-                }while(!isValidUsername(username));
-                do{
-                    cout<<"Input Sex <M or F>: ";
-                    cin>>sex;      
-                }while(!isValidSex(sex));
-                do{
-                    cout<<"Input Phone Number <xxx-xxx-xxx>: ";
-                    cin>>phoneNumber;        
-                }while(!isValidPhoneNumber(phoneNumber));
-                cin>>birthdate;
-                cin>>address;
+                inputStudentUsername();
+                inputStudentSex();
+                inputStudentPhoneNumber();
+                inputStudentBirthdate();
+                inputStudentAddress();
             }
     void inputStudentUsername(){
         do{
             cout<<"Input Username: ";
-            cin>>username;        
+            cin>>username;
+            this->setUsername(username);        
         }while(!isValidUsername(username));
     }    
     void inputStudentSex(){
         do{
             cout<<"Input Sex <M or F>: ";
             cin>>sex;
+            this->setSex(sex);
         }while(!isValidSex(sex));
     }
     void inputStudentPhoneNumber(){
         do{
             cout<<"Input Phone Number <xxx-xxx-xxx>: ";
             cin>>phoneNumber;            
+            this->setPhoneNumber(phoneNumber);
         }while(!isValidPhoneNumber(phoneNumber));
     }
     void inputStudentBirthdate(){
@@ -97,7 +97,6 @@ public:
             }
     void outputStudent(){
         cout<<username<<" \t\t "<<sex<<" \t "<<phoneNumber<<endl;
-
     }
 
 };

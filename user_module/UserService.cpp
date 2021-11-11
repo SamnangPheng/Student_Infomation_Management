@@ -16,13 +16,15 @@ using namespace std;
 
 class UserService: public UserServiceDAO{
 private:
-    //string username;
     vector<User> userlist;
     User user;
     UserFileUtil userFileUtil;
     const string filename = "userlist.dat";
 
 public:
+    void addMainUser(User user){
+        userlist.push_back(user);
+    }
     void addUser(User user){
         userlist.push_back(user);
         cout<<"\n>>> User Added Successfully <<<"<<endl;  
@@ -33,6 +35,7 @@ public:
             throw u;
         }
         for(User user: userlist){
+            //system("cls");
             user.outputUser();
         }
     }
@@ -43,6 +46,7 @@ public:
         }
         for(User user: userlist){
             if(user.getUsername()==username){
+                //system("cls");
                 user.outputIndividualUser();
                 break;
             }
@@ -121,8 +125,8 @@ public:
     vector <User> getAllUsers(){
         User user1("dara", "Step@123", "admin");
         User user2("lina", "Step@321", "user");
-        addUser(user1);
-        addUser(user2);
+        addMainUser(user1);
+        addMainUser(user2);
         return userlist;
     }
     

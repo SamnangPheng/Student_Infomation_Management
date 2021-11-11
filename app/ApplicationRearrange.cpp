@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include "../user_module/GetChoice.cpp"
 #include "../user_module/ApplyUserService.cpp"
 #include "../student_module/ApplyStudentService.cpp"
 #include "../student_module/ScholarshipStudent.cpp"
@@ -20,10 +21,9 @@ enum{
     MANAGE_STUDENT
 };
 
-class ApplicationRearrange{
+class ApplicationRearrange: public GetChoice{
 private:
-    int choiceWelcome;
-    int choiceMain;
+    int choice;
     string username;
     string password;
     string role;
@@ -32,14 +32,11 @@ private:
     Authentication authentication;
 
     void welcomePage(){
-        cout<<"\n>>>>>>>>>>>>>>>>>>>>>>>> STUDENT INFORMATION MANAGEMENT <<<<<<<<<<<<<<<<<<<<<<<<<";
-        cout<<"\n                                   SYSTEM";
-        cout<<"\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> VERSION 1.0 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
+        cout<<"\n>>>>>>>>>>>>>>>>>>>>>> STUDENT INFORMATION MANAGEMENT <<<<<<<<<<<<<<<<<<<<<<<";
+        cout<<"\n\n                                 SYSTEM";
+        cout<<"\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> VERSION 1.0 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"<<endl;
         cout<<"\n1. Login To The System"<<endl;
         cout<<"0. Exit"<<endl;   
-        cout<<"Enter Choice: ";
-        cin>>choiceWelcome;   
-        cout<<endl;
     }
     void mainMenu(){
         system("cls");
@@ -48,16 +45,15 @@ private:
         cout<<"2. Manage Student"<<endl;
         cout<<"0. Back to Welcome Page"<<endl;
         cout<<"================"<<endl;
-        cout<<"Enter Choice: ";
-        cin>>choiceMain;
-        cout<<endl;
     }
 
 public:
     void run(){
+        int choice0;
         do{
             welcomePage();
-            switch(choiceWelcome){
+            choice0 = getCommand(choice);   
+            switch(choice0){
                 case LOGIN:
                     system("cls");
                     cout<<"Enter Username: ";
@@ -70,7 +66,8 @@ public:
                             system("cls");
                             cout<<"\n\tWELCOME"<<endl<<endl;
                             mainMenu();
-                            switch(choiceMain){
+                            choice = getCommand(choice);   
+                            switch(choice){
                                 case MANAGE_USER:
                                     system("cls");
                                     applyUserService.manageUserChoice();
@@ -87,12 +84,13 @@ public:
                         }else if(authentication.authenticateUser(username, password, role="user")){
                             system("cls");
                             applyStudentService.manageStudentChoice();
+                            break;
                         }else{
                             cout<<"\nInvalid Input"<<endl;
                             break;
                         }
 
-                    }while(choiceMain!=WELCOME_PAGE);
+                    }while(choice!=WELCOME_PAGE);
                     break;
                 case EXIT:
                     break;
@@ -100,7 +98,7 @@ public:
                     cout<<">>> Invalid Input <<<"<<endl;
                     break;
             }
-        }while(choiceWelcome!=EXIT);
+        }while(choice0!=EXIT);
 
     }
     

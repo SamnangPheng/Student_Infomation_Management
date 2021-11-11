@@ -26,13 +26,19 @@ public:
         return role;
     }
     void setUsername(string username){
-        this->username=username;
+        if(isValidUsername(username)){
+            this->username=username;
+        }
     }
-     void setPassword(string password){
-        this->password=password;
+    void setPassword(string password){
+        if(isValidPassword(password)){
+            this->password=password;
+         }
     }
-     void setRole(string role){
-        this->role=role;
+    void setRole(string role){
+        if(isValidRole(role)){
+            this->role=role;
+        }
     }
 
     bool isValidUsername(string username){
@@ -50,36 +56,29 @@ public:
     }    
 
     void inputUser(){
-        do{
-            cout<<"Input Username: ";
-            cin>>username;        
-        }while(!isValidUsername(username));
-        do{
-            cout<<"Input Password: ";
-            cin>>password;
-        }while(!isValidPassword(password));
-        do{
-            cout<<"Input Role: ";
-            cin>>role;            
-        }while(!isValidRole(role));
-
+        inputUserUsername();
+        inputUserPassword();
+        inputUserRole();
     }
     void inputUserUsername(){
         do{
             cout<<"Input Username: ";
             cin>>username;
+            this->setUsername(username);
         }while(!isValidUsername(username));
     }    
     void inputUserPassword(){
         do{
             cout<<"Input Password: ";
             cin>>password;
+            this->setPassword(password);
         }while(!isValidPassword(password));
     }
     void inputUserRole(){
         do{
             cout<<"Input Role: ";
-            cin>>role;            
+            cin>>role;     
+            this->setRole(role);     
         }while(!isValidRole(role));
     }
 
